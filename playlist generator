@@ -1,0 +1,81 @@
+import random
+
+# Sample song database categorized by mood
+SONG_DATABASE = {
+    'Happy': [
+        'Happy - Pharrell Williams',
+        'Can’t Stop the Feeling! - Justin Timberlake',
+        'Uptown Funk - Mark Ronson ft. Bruno Mars',
+        'Good as Hell - Lizzo',
+        'I Gotta Feeling - The Black Eyed Peas'
+    ],
+    'Sad': [
+        'Someone Like You - Adele',
+        'Fix You - Coldplay',
+        'Yesterday - The Beatles',
+        'All I Want - Kodaline',
+        'Let Her Go - Passenger'
+    ],
+    'Relaxed': [
+        'Weightless - Marconi Union',
+        'Clair de Lune - Claude Debussy',
+        'Sunset Lover - Petit Biscuit',
+        'Into the Mystic - Van Morrison',
+        'Chill Out - John Lee Hooker'
+    ],
+    'Energetic': [
+        'Eye of the Tiger - Survivor',
+        'Stronger - Kanye West',
+        'Can’t Hold Us - Macklemore & Ryan Lewis',
+        'Lose Yourself - Eminem',
+        'We Will Rock You - Queen'
+    ],
+    'Focused': [
+        'Time - Hans Zimmer',
+        'Lofi Study Beats - Various Artists',
+        'Prelude in E Minor - Chopin',
+        'Adagio for Strings - Samuel Barber',
+        'The Four Seasons - Vivaldi'
+    ]
+}
+
+class MoodBasedPlaylistGenerator:
+    def __init__(self):
+        self.moods = SONG_DATABASE.keys()
+    
+    def select_mood(self):
+        print("Select your current mood:")
+        for i, mood in enumerate(self.moods):
+            print(f"{i + 1}. {mood}")
+        
+        choice = int(input("Enter the number corresponding to your mood: ")) - 1
+        selected_mood = list(self.moods)[choice]
+        return selected_mood
+    
+    def generate_playlist(self, mood):
+        songs = SONG_DATABASE.get(mood, [])
+        if not songs:
+            print("No songs available for this mood.")
+            return []
+        
+        # Shuffle the songs for randomness
+        random.shuffle(songs)
+        
+        # Return a playlist of 3 songs
+        playlist = songs[:3]
+        return playlist
+    
+    def display_playlist(self, mood, playlist):
+        print(f"\nYour {mood} playlist:")
+        for i, song in enumerate(playlist):
+            print(f"{i + 1}. {song}")
+
+# Example usage
+generator = MoodBasedPlaylistGenerator()
+
+# User selects a mood
+selected_mood = generator.select_mood()
+
+# Generate and display the playlist based on the selected mood
+playlist = generator.generate_playlist(selected_mood)
+generator.display_playlist(selected_mood, playlist)
